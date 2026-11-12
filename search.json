@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ten Sentence Term Paper",
+    "section": "",
+    "text": "Introduction\nBotanists have long wondered whether the parts of a flower grow in step with one another. Is there a relationship between petal length and petal width in iris flowers?\n\n\nLiterature Review\nLong ago, a botanist with a ruler measured 150 irises and left the numbers behind for future students to puzzle over. Ever since, every petal has been suspected of keeping up with its neighbors.\n\n\nMethod\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\ndf = sns.load_dataset('iris')\nn = df.shape[0]\n\nWe used the iris dataset, which contains 150 flowers, and calculated the correlation between petal length and petal width. Our null hypothesis is that the correlation is zero, and our alternate hypothesis is that the correlation is not zero.\n\n\nResults\n\ncorr_table = df.corr(numeric_only=True)\nr = corr_table.loc[\"petal_length\", \"petal_width\"]\n\nif r &gt; .8:\n    narrative = \"a very strong positive correlation\"\nelif r &gt; .4:\n    narrative = \"a moderate positive correlation\"\nelif r &gt; 0:\n    narrative = \"a positive but weak correlation\"\nelif r &gt; -.4:\n    narrative = \"a negative but weak correlation\"\nelif r &gt; -.8:\n    narrative = \"a moderate negative correlation\"\nelse:\n    narrative = \"a very strong negative correlation\"\n\nfig, ax = plt.subplots(figsize=(6, 3.5))\nsns.regplot(data=df, x=\"petal_width\", y=\"petal_length\", ax=ax)\nplt.show()\n\n\n\n\n\n\n\n\nThe correlation between petal length and petal width was r = 0.96, which is a very strong positive correlation. The scatterplot above shows the points rising together along a straight line.\n\n\nDiscussion\nLonger petals tend to be wider petals, so we reject the null hypothesis of no relationship. This is only a correlation in one small dataset, so future research should test whether it holds across more species and larger samples."
+  }
+]
