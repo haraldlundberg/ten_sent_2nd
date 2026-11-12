@@ -1,0 +1,57 @@
+---
+title: "Ten Sentence Term Paper"
+author: "Harald Lundberg"
+execute:
+  echo: true
+---
+
+# Introduction
+
+Botanists have long wondered whether the parts of a flower grow in step with one another. Is there a relationship between petal length and petal width in iris flowers?
+
+# Literature Review
+
+Long ago, a botanist with a ruler measured 150 irises and left the numbers behind for future students to puzzle over. Ever since, every petal has been suspected of keeping up with its neighbors.
+
+# Method
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset('iris')
+n = df.shape[0]
+```
+
+We used the iris dataset, which contains `{python} n` flowers, and calculated the correlation between petal length and petal width. Our null hypothesis is that the correlation is zero, and our alternate hypothesis is that the correlation is not zero.
+
+# Results
+
+```{python}
+corr_table = df.corr(numeric_only=True)
+r = corr_table.loc["petal_length", "petal_width"]
+
+if r > .8:
+    narrative = "a very strong positive correlation"
+elif r > .4:
+    narrative = "a moderate positive correlation"
+elif r > 0:
+    narrative = "a positive but weak correlation"
+elif r > -.4:
+    narrative = "a negative but weak correlation"
+elif r > -.8:
+    narrative = "a moderate negative correlation"
+else:
+    narrative = "a very strong negative correlation"
+
+fig, ax = plt.subplots(figsize=(6, 3.5))
+sns.regplot(data=df, x="petal_width", y="petal_length", ax=ax)
+plt.show()
+```
+
+The correlation between petal length and petal width was r = `{python} f"{r:.2f}"`, which is `{python} narrative`. The scatterplot above shows the points rising together along a straight line.
+
+# Discussion
+
+Longer petals tend to be wider petals, so we reject the null hypothesis of no relationship. This is only a correlation in one small dataset, so future research should test whether it holds across more species and larger samples.
